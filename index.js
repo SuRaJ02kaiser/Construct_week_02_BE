@@ -21,6 +21,7 @@ app.get("/api/images", async (req, res) => {
       params: { query: place, per_page: 5, client_id: accessKey },
     });
 
+    
     const images = response.data.results.map((image) => ({
       url: image.urls.regular,
     }));
