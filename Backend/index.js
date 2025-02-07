@@ -5,14 +5,12 @@ const cors = require("cors");
 
 const app = express();
 app.use(express.json());
-app.use(express.json());
 const PORT = 1790;
 
 app.use(cors());
 
-// Route to fetch images from Unsplash
 app.get("/api/images", async (req, res) => {
-  try{
+  try {
     const place = req.query.place;
     if (!place) return res.status(400).json({ error: "Place name is required" });
 
@@ -21,12 +19,12 @@ app.get("/api/images", async (req, res) => {
       params: { query: place, per_page: 5, client_id: accessKey },
     });
 
-    
     const images = response.data.results.map((image) => ({
       url: image.urls.regular,
     }));
+
     res.json(images);
-  } catch(error){
+  } catch (error) {
     console.error("Error fetching images:", error);
     res.status(500).json({ error: "Failed to fetch images" });
   }
